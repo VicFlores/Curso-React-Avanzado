@@ -1,29 +1,46 @@
-import React from 'react';
-import ListCategories from './components/ListCategories/ListCategories';
-import ListPhotoCard from './components/ListPhotoCard/ListPhotoCard';
+import React, { useContext } from 'react';
+import { Router } from '@reach/router';
+import Home from './pages/Home';
+import Details from './pages/Details';
 import Logo from './components/Logo/Logo';
-import PhotoCardQuery from './container/PhotoCardQuery';
-
+import NavBar from './components/NavBar/NavBar';
+import Favs from './pages/Favs';
+import User from './pages/User';
 import { GlobalStyle } from './styles/GlobalStyle';
+import AppContext from './context/AppContext';
+import NotRegisteredUser from './pages/NotRegisterUser';
 
 const App = () => {
-  const urlParams = new URLSearchParams(
+  /*   const urlParams = new URLSearchParams(
     location.search
-  ); /* Enrutamiento dinámico */
-  const detailID = urlParams.get('detail');
+  );  Enrutamiento dinámico 
+	const detailID = urlParams.get('detail'); */
 
   return (
     <>
       <GlobalStyle />
       <Logo />
-      {detailID ? (
-        <PhotoCardQuery id={detailID} />
-      ) : (
-        <>
-          <ListCategories />
-          <ListPhotoCard />
-        </>
-      )}
+      <Router>
+        <Home path="/" />
+        <Home path="/pet/:id" />
+        <Details path="/detail/:detailID" />
+      </Router>
+      <AppContext.Consumer>
+        {({ isAuth }) =>
+          isAuth ? (
+            <Router>
+              <Favs path="/favs" />
+              <User path="/user" />
+            </Router>
+          ) : (
+            <Router>
+              <NotRegisteredUser path="/favs" />
+              <NotRegisteredUser path="/user" />
+            </Router>
+          )
+        }
+      </AppContext.Consumer>
+      <NavBar />
     </>
   );
 };

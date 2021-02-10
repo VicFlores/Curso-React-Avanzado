@@ -3,8 +3,8 @@ import React from 'react';
 import PhotoCard from '../PhotoCard/PhotoCard';
 
 const withPhotos = gql`
-  query getPhotos($categoryID: ID) {
-    photos(categoryId: $categoryID) {
+  query getPhotos($categoryId: ID) {
+    photos(categoryId: $categoryId) {
       id
       categoryId
       src
@@ -15,9 +15,9 @@ const withPhotos = gql`
   }
 `;
 
-const ListPhotoCard = () => {
+const ListPhotoCard = ({ categoryId }) => {
   const { loading, error, data } = useQuery(withPhotos, {
-    variables: { categoryID: 1 },
+    variables: { categoryId },
   });
 
   if (error) return <h2>Internal Server Error</h2>;
