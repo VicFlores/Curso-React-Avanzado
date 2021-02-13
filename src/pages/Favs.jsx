@@ -1,10 +1,12 @@
 import React from 'react';
+import ListOfFavs from '../components/ListOfFavs/ListOfFavs';
+import Layout from '../components/Layout/Layout';
 
 const Favs = () => {
   return (
-    <div>
-      <h1>Favs</h1>
-    </div>
+    <Layout title="Tus favoritos" subtitle="Tu lista de mascotas favoritas">
+      <ListOfFavs />
+    </Layout>
   );
 };
 

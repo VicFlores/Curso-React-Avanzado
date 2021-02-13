@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import usePets from '../../hooks/usePets';
 import Category from '../Category/Category';
 import { List, Item } from './style';

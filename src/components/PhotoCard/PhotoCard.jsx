@@ -1,14 +1,13 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import useObserver from '../../hooks/useObserver';
-import useLocalStorage from '../../hooks/useLocalStorage';
 import { Link } from '@reach/router';
 import { Img, ImgWrapper, Article, Button } from './style';
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 
 const LIKE_PHOTO = gql`
-  mutation likeAnonymousPhoto($input: LikePhoto!) {
-    likeAnonymousPhoto(input: $input) {
+  mutation likePhoto($input: LikePhoto!) {
+    likePhoto(input: $input) {
       id
       liked
       likes
@@ -21,9 +20,7 @@ const DEFAULT_IMG =
 
 const Size = '32px';
 
-const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMG }) => {
-  const keyLike = `like-${id}`;
-  const [liked, setLiked] = useLocalStorage(keyLike, false);
+const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMG, liked }) => {
   const [likeAnonymousPhoto] = useMutation(LIKE_PHOTO, {
     variables: {
       input: { id },
@@ -33,8 +30,7 @@ const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMG }) => {
   const { show, element } = useObserver();
 
   const HandleFavClick = () => {
-    !liked && likeAnonymousPhoto();
-    setLiked(!liked);
+    likeAnonymousPhoto();
   };
 
   return (

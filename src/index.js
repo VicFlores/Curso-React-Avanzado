@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import App from './App';
 import AppContext from './context/AppContext';
-
-const client = new ApolloClient({
-  uri: 'https://petgram-server-amber.vercel.app/graphql',
-  cache: new InMemoryCache(),
-});
+import client from '../config/apollo';
 
 ReactDOM.render(
   <AppContext.Provider>

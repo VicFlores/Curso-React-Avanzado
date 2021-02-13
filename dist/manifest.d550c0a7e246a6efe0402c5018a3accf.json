@@ -1,0 +1,49 @@
+{
+  "icons": [
+    {
+      "src": "/icon_512x512.fa8bf0d269f43d16fca31d366036bea4.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon_384x384.e49eae876786bbcecd7cacb0cb1528d9.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon_256x256.6ffc3a4a6f95ce4388b2dabb1f2b4f15.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon_192x192.f62674e98096bcb9fd185f99f07ffae3.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon_128x128.10e5da1c051324b5b8cfc17ddebe60ef.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon_96x96.83d7d03fd780292cc956a48287b1128f.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "name": "Petgram - Tu app de fotos de mascotas",
+  "short_name": "Petgram",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "/",
+  "description": "Con Petgram encontraras fotos de animales domésticos muy bonitos",
+  "background_color": "#fff",
+  "theme_color": "#b1a",
+  "scope": "/"
+}

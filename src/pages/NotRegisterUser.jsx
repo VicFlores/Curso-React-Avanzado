@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import UserForm from '../components/UserForm/UserForm';
-import AppContext from '../context/AppContext';
+import { AppContext } from '../context/AppContext';
 import styled from 'styled-components';
 
 import { LoginMutation } from '../container/LoginMutation';
@@ -17,59 +17,59 @@ const Img = styled.img`
 `;
 
 const Div = styled.div`
-  margin-top: 30px;
+  margin-top: 80px;
 `;
 
 const NotRegisteredUser = () => {
+  const { activateAuth } = useContext(AppContext);
+
+  const { loginUser, error: errorLog, loading: loadingLog } = LoginMutation();
+
   const {
     registerUser,
     error: errorReg,
     loading: loadingReg,
   } = RegisterMutation();
 
-  const { loginUser, error: errorLog, loading: loadingLog } = LoginMutation();
+  const registerSubmit = ({ email, password }) => {
+    registerUser(email, password).then(({ data }) => {
+      const { signup } = data;
+      activateAuth(signup);
+    });
+  };
+
+  const loginSubmit = ({ email, password }) => {
+    loginUser(email, password).then(({ data }) => {
+      const { login } = data;
+      activateAuth(login);
+    });
+  };
+
+  const errorRegMsg = errorReg && 'El usuario ya existe o hay algún problema.';
+
+  const errorLogMsg =
+    errorLog && 'La contraseña no es correcta o el usuario no existe.';
 
   return (
-    <AppContext.Consumer>
-      {({ activateAuth }) => {
-        const registerSubmit = ({ email, password }) => {
-          registerUser(email, password).then(activateAuth);
-        };
-        const errorRegMsg =
-          errorReg && 'El usuario ya existe o hay algún problema.';
+    <div>
+      <Figure>
+        <Img src="https://i.imgur.com/DuR9wz8.png" alt="Not register user" />
+      </Figure>
 
-        const loginSubmit = ({ email, password }) => {
-          loginUser(email, password).then(activateAuth);
-        };
-        const errorLogMsg =
-          errorLog && 'La contraseña no es correcta o el usuario no existe.';
-
-        return (
-          <div>
-            <Figure>
-              <Img
-                src="https://i.imgur.com/DuR9wz8.png"
-                alt="Not register user"
-              />
-            </Figure>
-
-            <UserForm
-              disabled={loadingReg}
-              error={errorRegMsg}
-              title="Registrarse"
-              onSubmit={registerSubmit}
-            />
-            <UserForm
-              disabled={loadingLog}
-              error={errorLogMsg}
-              title="Iniciar sesión"
-              onSubmit={loginSubmit}
-            />
-            <Div />
-          </div>
-        );
-      }}
-    </AppContext.Consumer>
+      <UserForm
+        disabled={loadingReg}
+        error={errorRegMsg}
+        title="Registrarse"
+        onSubmit={registerSubmit}
+      />
+      <UserForm
+        disabled={loadingLog}
+        error={errorLogMsg}
+        title="Iniciar sesión"
+        onSubmit={loginSubmit}
+      />
+      <Div />
+    </div>
   );
 };
 
